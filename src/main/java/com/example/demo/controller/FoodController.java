@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.model.Food;
 import com.example.demo.repository.FoodRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,7 +21,8 @@ public class FoodController {
     }
 
     @PostMapping
-    public Food createFood(@RequestBody Food food) {
-        return foodRepository.save(food);
+    public ResponseEntity<Food> addFood(@RequestBody Food food) {
+        Food savedFood = foodRepository.save(food);
+        return ResponseEntity.ok(savedFood);
     }
 }
