@@ -113,7 +113,4 @@ Feel free to submit pull requests for any improvements or open issues for discus
 ## **License**
 This project is licensed under the MIT License. See the `LICENSE` file for more information.
 
-## **Contact**
-For any questions or suggestions, feel free to contact the project maintainer at:
 
-- **Email**: [your-email@example.com]
