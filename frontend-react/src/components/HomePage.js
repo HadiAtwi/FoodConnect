@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import UserSelection from './UserSelection'; // Component for user type selection
 import DonorPortal from './DonorPortal'; // Component for the Donor interface
 import NGOPortal from './NGOPortal'; // Component for the NGO interface
+import { Button, Container, Row, Col, Form, ListGroup, Spinner } from 'react-bootstrap';
 
 // The main HomePage component
 function HomePage() {
@@ -13,6 +14,7 @@ function HomePage() {
     const [dataIsLoaded, setDataIsLoaded] = useState(false);
     // State to track the selected user type (Donor or NGO)
     const [userType, setUserType] = useState(null);
+    const [isDonorView, setIsDonorView] = useState(false);
 
     // Fetch data from the server once the component is mounted
     useEffect(() => {
@@ -30,25 +32,68 @@ function HomePage() {
         setUserType(type);
     };
 
+    // Toggle between Donor and NGO view
+    const handleDonorClick = () => setIsDonorView(true);
+    const handleNgoClick = () => setIsDonorView(false);
+
     // Render a loading message if data is not yet loaded
     if (!dataIsLoaded) {
-        return <div><h1>Please wait...</h1></div>;
+        return (
+            <Container className="text-center mt-5">
+                <Spinner animation="border" variant="primary" />
+                <h3>Please wait...</h3>
+            </Container>
+        );
     }
 
-    // Main return statement to render the component
     return (
-        <div className="App" style={{ padding: "20px" }}>
-            <h1>FoodConnect</h1>
-            <p>Welcome to FoodConnect! Our goal is to connect donors with NGOs to help distribute expired but still usable food items to those in need.</p>
-            {/* Render UserSelection component, passing the user type handler function */}
-            <UserSelection onUserTypeSelect={handleUserTypeSelection} />
+        <Container className="mt-5">
+            <h1 className="text-center mb-4">FoodConnect - Expired Grocery Items</h1>
 
-            {/* Conditionally render DonorPortal or NGOPortal based on user selection */}
-            {userType === "Donor" && <DonorPortal items={items} setItems={setItems} />}
-            {userType === "NGO" && <NGOPortal items={items} />}
-            {/* Show a prompt to select user type if none is selected */}
-            {userType === null && <p>Please select whether you are a Donor or an NGO to proceed.</p>}
-        </div>
+            {/* Buttons to switch between donor and NGO view */}
+            <Row className="mb-4">
+                <Col className="text-center">
+                    <Button variant="primary" onClick={handleDonorClick} className="mr-2">
+                        Donor
+                    </Button>
+                    <Button variant="success" onClick={handleNgoClick}>
+                        NGO
+                    </Button>
+                </Col>
+            </Row>
+
+            {/* Conditional rendering based on the view */}
+            {isDonorView ? (
+                // Donor view: form to add new item
+                <Row>
+                    <Col md={{ span: 6, offset: 3 }}>
+                        <Form>
+                            <Form.Group controlId="formItemName">
+                                <Form.Label>New Item</Form.Label>
+                                <Form.Control type="text" placeholder="Enter item name" />
+                            </Form.Group>
+                            <Button variant="primary" type="submit" className="mt-2">
+                                Add Item
+                            </Button>
+                        </Form>
+                    </Col>
+                </Row>
+            ) : (
+                // NGO view: list of donated items
+                <Row>
+                    <Col md={{ span: 8, offset: 2 }}>
+                        <h3 className="text-center mb-3">Available Expired Items</h3>
+                        <ListGroup>
+                            {items.map((item) => (
+                                <ListGroup.Item key={item.id}>
+                                    <strong>Item:</strong> {item.name}
+                                </ListGroup.Item>
+                            ))}
+                        </ListGroup>
+                    </Col>
+                </Row>
+            )}
+        </Container>
     );
 }
 
