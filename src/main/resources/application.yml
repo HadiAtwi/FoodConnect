@@ -3,6 +3,10 @@ spring:
     url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
     password: postgres
+  security:
+    user:
+      name: ngoUser
+      password: password
   jpa:
     hibernate:
       ddl-auto: update
