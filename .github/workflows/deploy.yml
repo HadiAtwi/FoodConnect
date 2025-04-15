@@ -27,7 +27,7 @@ jobs:
       - name: Deploy Backend to Azure
         uses: azure/webapps-deploy@v2
         with:
-          app-name: YOUR_BACKEND_APP_NAME  # Replace with your backend app name on Azure
+          app-name: FoodConnect  # Replace with your backend app name on Azure
           publish-profile: ${{ secrets.AZURE_BACKEND_PUBLISH_PROFILE }}
           package: ./target/*.jar
 
