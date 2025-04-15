@@ -21,7 +21,7 @@ jobs:
 
       - name: Build Spring Boot App
         run: |
-          cd backend
+          
           ./mvnw clean package -DskipTests  # Or use ./gradlew for Gradle
 
       - name: Deploy Backend to Azure
