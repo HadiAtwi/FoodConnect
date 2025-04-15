@@ -18,10 +18,10 @@ jobs:
         with:
           java-version: '21'  # You can change this to your preferred Java version
           distribution: 'temurin'
-
+      - name: Make mvnw executable
+        run: chmod +x mvnw
       - name: Build Spring Boot App
-        run: |
-          
+        run:           
           ./mvnw clean package -DskipTests  # Or use ./gradlew for Gradle
 
       - name: Deploy Backend to Azure
