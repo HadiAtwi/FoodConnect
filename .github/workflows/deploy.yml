@@ -23,7 +23,8 @@ jobs:
       - name: Build Spring Boot App
         run:           
           ./mvnw clean package -DskipTests  # Or use ./gradlew for Gradle
-
+      - name: Verify .jar file exists
+        run: ls -lh ./target
       - name: Deploy Backend to Azure
         uses: azure/webapps-deploy@v2
         with:
