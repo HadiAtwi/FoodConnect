@@ -18,4 +18,22 @@ public class UserService {
     public User saveUser(User user) {
         return userRepository.save(user);
     }
+
+    // Get user by ID
+    public User getUserById(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found with id: " + id));
+    }
+
+    // Update user details
+    public User updateUser(Long id, User updatedUser) {
+        User existingUser = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found with id: " + id));
+
+        existingUser.setName(updatedUser.getName());
+        existingUser.setEmail(updatedUser.getEmail());
+        existingUser.setDescription(updatedUser.getDescription());
+
+        return userRepository.save(existingUser);
+    }
 }

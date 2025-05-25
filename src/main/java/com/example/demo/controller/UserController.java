@@ -16,7 +16,7 @@ public class UserController {
 
     @PutMapping("/{id}")
     public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User updatedUser) {
-        savedUser = userService.updateUser(id, updatedUser);
+        User savedUser = userService.updateUser(id, updatedUser);
         return ResponseEntity.ok(savedUser); // ✅ Return updated user in JSON
     }
 

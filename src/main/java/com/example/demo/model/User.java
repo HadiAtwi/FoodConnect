@@ -53,5 +53,35 @@ public class User {
     @Column(nullable = false)
     private String role; // "NGO" or "Donor"
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    private String name;
+
+    private String email;
+
+    @Column(length = 1000)
+    private String description;
 
 }
