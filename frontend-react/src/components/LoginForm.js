@@ -26,6 +26,7 @@ function Login() {
           console.log('Fetched data:', data);
           //setUser(data);
           //setIsLoggedIn(true); // Set login state to true
+          localStorage.setItem("user", JSON.stringify(data));
            // Redirect user based on their role
            if (data.role === 'ROLE_NGO') {
             navigate('/ngo'); // Navigate to NGO Portal
@@ -44,7 +45,7 @@ function Login() {
     //  }
     return (
       <div className="login-container">
-        <h1>Amazing Login</h1>
+        <h1>Food Connect</h1>
         <form onSubmit={handleLogin}>
           <div className="form-group">
             <label htmlFor="username">Username</label>
