@@ -32,4 +32,21 @@ jobs:
           publish-profile: ${{ secrets.AZURE_BACKEND_PUBLISH_PROFILE }}
           package: ./target/demo-0.0.1-SNAPSHOT.jar
 
+      - name: Wait for deployment to be live
+        run: sleep 30  # Wait for the Azure app to become available
+
+      - name: Run OWASP ZAP Baseline Scan
+        uses: zaproxy/action-baseline@v0.10.0
+        with:
+          target: 'https://foodconnect.azurewebsites.net'
+          fail_action: false
+          format: html
+          cmd_options: '-a'
+
+      - name: Upload ZAP Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: ZAP-Scan-Report
+          path: report.html
+
   
