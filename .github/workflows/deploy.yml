@@ -46,7 +46,7 @@ jobs:
         run: |
           cd frontend-react
           npm install
-          npm run build
+          CI='' npm run build
 
       - name: Serve React App
         run: |
