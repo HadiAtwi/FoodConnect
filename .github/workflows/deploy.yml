@@ -60,13 +60,13 @@ jobs:
           target: 'http://localhost:3000'
           fail_action: false
           allow_issue_writing: false
-          artifact_name: 'zap_report'
+          artifact_name: 'zapreport'
 
 
       - name: Upload ZAP Report
         uses: actions/upload-artifact@v4
         with:
-          name: ZAP-Scan-Report
+          name: zapreport
           path: report.html
 
   
