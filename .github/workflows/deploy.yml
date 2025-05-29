@@ -54,10 +54,12 @@ jobs:
           serve -s frontend-react/build -l 3000 &
         shell: bash
 
-      - name: Pre-create zap.yaml
+      # === Prepare ZAP Report Directory and zap.yaml ===
+      - name: Create report dir and zap.yaml
         run: |
-          touch zap.yaml
-
+          mkdir -p zap-report
+          touch zap-report/zap.yaml
+          chmod 666 zap-report/zap.yaml
 
       # === Run ZAP Docker Scan ===
       - name: Run OWASP ZAP Baseline Scan
