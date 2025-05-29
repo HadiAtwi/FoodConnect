@@ -59,19 +59,21 @@ jobs:
           touch zap.yaml
 
 
+      # === Run ZAP Docker Scan ===
       - name: Run OWASP ZAP Baseline Scan
-        uses: zaproxy/action-baseline@v0.10.0
-        with:
-          target: 'http://localhost:3000'
-          fail_action: false
-          allow_issue_writing: false
-          artifact_name: 'zapreport'
-
+        run: |
+          docker pull ghcr.io/zaproxy/zaproxy:stable
+          docker run --network="host" \
+            -v ${{ github.workspace }}/zap-report:/zap/wrk/:rw \
+            ghcr.io/zaproxy/zaproxy:stable zap-baseline.py \
+              -t http://localhost:3000 \
+              -r report.html
+        shell: bash
 
       - name: Upload ZAP Report
         uses: actions/upload-artifact@v4
         with:
           name: zapreport
-          path: report.html
+          path: zap-report/report.html
 
   
