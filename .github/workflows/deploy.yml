@@ -54,6 +54,11 @@ jobs:
           serve -s frontend-react/build -l 3000 &
         shell: bash
 
+      - name: Pre-create zap.yaml
+        run: |
+          touch zap.yaml
+
+
       - name: Run OWASP ZAP Baseline Scan
         uses: zaproxy/action-baseline@v0.10.0
         with:
