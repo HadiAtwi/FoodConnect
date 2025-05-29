@@ -59,7 +59,9 @@ jobs:
         run: |
           mkdir -p zap-report
           touch zap-report/zap.yaml
+          touch zap-report/report.html
           chmod 666 zap-report/zap.yaml
+          chmod 666 zap-report/report.html
 
       # === Run ZAP Docker Scan ===
       - name: Run OWASP ZAP Baseline Scan
